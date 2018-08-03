@@ -12,12 +12,19 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp',(err,db)=>{
     console.log('Connected to MongoDB Server');
     var dbo = db.db("TodoApp");
 
-    dbo.collection('Todos').find({completed:true}).toArray().then((docs)=>{
-        console.log('Todos');
-        console.log(JSON.stringify(docs,undefined,2));
+    //Delete Many
+    // dbo.collection('Todos').deleteMany({
+    //     text:'Watch the dogs'
+    // }).then((result)=>{
+    //     console.log(result);
         
-    },(err)=>{
-        console.log('Unable to fetch todos',err);
+    // });
+
+    //Delete one
+    dbo.collection('Todos').findOneAndDelete({
+        text:'Something to do'
+    }).then((result)=>{
+        console.log(result);
         
     });
 
